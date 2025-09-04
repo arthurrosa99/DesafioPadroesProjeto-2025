@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class VisualizadorDeSomatorio implements Observer {
+public class VisualizadorDeMaximo implements Observer {
     private List<Integer> valores;
     private boolean ativo;
 
-    public VisualizadorDeSomatorio() {
+    public VisualizadorDeMaximo() {
         this.valores = new ArrayList<>();
         this.ativo = false;
     }
@@ -14,29 +14,30 @@ public class VisualizadorDeSomatorio implements Observer {
     public void update(int novoValor) {
         if (ativo) {
             valores.add(novoValor);
-            exibeSomatorio();
+            exibeMaximo();
         }
     }
 
     public void ativar() {
         this.ativo = true;
-        System.out.println("Visualizador de Somatório ATIVADO");
+        System.out.println("Visualizador de Máximo ATIVADO");
     }
 
     public void desativar() {
         this.ativo = false;
-        System.out.println("Visualizador de Somatório DESATIVADO");
+        System.out.println("Visualizador de Máximo DESATIVADO");
     }
 
     public boolean isAtivo() {
         return ativo;
     }
 
-    private void exibeSomatorio() {
-        int soma = valores.stream()
+    private void exibeMaximo() {
+        int maximo = valores.stream()
             .mapToInt(Integer::intValue)
-            .sum();
-        System.out.println("Somatório: " + soma + 
+            .max()
+            .orElse(0);
+        System.out.println("Valor Máximo: " + maximo + 
                           ", quantidade de elementos analisados: " + valores.size());
     }
 }
